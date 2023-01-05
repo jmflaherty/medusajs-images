@@ -1,0 +1,18 @@
+FROM clearlinux/node
+
+WORKDIR /app/
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+RUN swupd bundle-add git
+RUN npm install npm yarn -g
+
+RUN git clone https://github.com/medusajs/admin medusa-admin
+
+WORKDIR /app/medusa-admin/
+
+RUN yarn install && yarn cache clean
+
+EXPOSE 7000
+
+ENTRYPOINT yarn start

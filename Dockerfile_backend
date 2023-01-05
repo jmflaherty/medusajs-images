@@ -1,0 +1,25 @@
+FROM clearlinux/node
+
+WORKDIR /app/
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+RUN swupd bundle-add git
+RUN npm install npm yarn -g
+
+RUN yarn global add @medusajs/medusa-cli
+RUN medusa new my-medusa-store
+RUN yarn cache clean
+
+WORKDIR /app/my-medusa-store/
+RUN sed -i "s|// database_url: DATABASE_URL,|database_url: DATABASE_URL,|g" medusa-config.js
+RUN sed -i "s|database_type: \"sqlite\",|database_type: \"postgres\",|g" medusa-config.js
+
+COPY entrypoint-backend.sh .
+RUN chmod +x entrypoint-backend.sh
+
+ENV DATABASE_URL=http://localhost:5432
+
+EXPOSE 9000
+
+ENTRYPOINT ["./entrypoint-backend.sh"]
