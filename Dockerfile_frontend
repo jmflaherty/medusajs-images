@@ -16,6 +16,8 @@ RUN mv .env.template .env.local
 COPY entrypoint-frontend.sh .
 RUN chmod +x entrypoint-frontend.sh
 
+ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://backend:9000
+
 EXPOSE 8080
 
 ENTRYPOINT ["./entrypoint-frontend.sh"]

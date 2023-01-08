@@ -13,6 +13,8 @@ WORKDIR /app/medusa-admin/
 
 RUN yarn install && yarn cache clean
 
+ENV MEDUSA_BACKEND_URL=http://backend:9000
+
 EXPOSE 7000
 
 ENTRYPOINT yarn start
