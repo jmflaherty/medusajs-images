@@ -1,7 +1,6 @@
 FROM clearlinux/node
 
 WORKDIR /app/
-
 ENV PATH /app/node_modules/.bin:$PATH
 
 RUN swupd bundle-add git
@@ -19,6 +18,8 @@ COPY entrypoint-backend.sh .
 RUN chmod +x entrypoint-backend.sh
 
 ENV DATABASE_URL=postgres://postgres:postgres@postgres:5432/medusa-db
+ENV STORE_CORS=http://frontend:8080
+ENV ADMIN_CORS=http://admin:7000
 
 EXPOSE 9000
 
