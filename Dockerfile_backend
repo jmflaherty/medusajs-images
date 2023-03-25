@@ -22,7 +22,7 @@ ENV STORE_CORS=http://frontend:8080
 ENV ADMIN_CORS=http://admin:7000
 
 HEALTHCHECK --interval=10s \
-  CMD ["curl", "--request POST", "http://localhost:9000/admin/auth", "--header 'Content-Type: application/json'", "--data-raw '{\"email\": \"user@email.com\",\"password\": \"supersecret\"}'", "||", "exit 0"]
+  CMD curl --request POST http://localhost:9000/admin/auth --header 'Content-Type: application/json' --data-raw '{"email": "user@email.com","password": "supersecret"}' || exit 0
 
 EXPOSE 9000
 

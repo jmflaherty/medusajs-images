@@ -16,7 +16,7 @@ RUN yarn install && yarn cache clean
 ENV MEDUSA_BACKEND_URL=http://backend:9000
 
 HEALTHCHECK --interval=10s \
-  CMD ["curl", "--request GET", "--fail", "http://localhost:7000", "-I", "|", "exit 0"]
+  CMD curl --request GET --fail http://localhost:7000 -I | exit 0
 
 EXPOSE 7000
 

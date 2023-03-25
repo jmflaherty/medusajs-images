@@ -19,7 +19,7 @@ RUN chmod +x entrypoint-frontend.sh
 ENV NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://backend:9000
 
 HEALTHCHECK --interval=10s \
-  CMD ["curl", "--request GET", "--fail", "http://localhost:8080", "-I", "|", "exit 0"]
+  CMD curl --request GET --fail http://localhost:8080 -I | exit 0
 
 EXPOSE 8080
 
